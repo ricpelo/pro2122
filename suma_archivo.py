@@ -1,0 +1,5 @@
+f = open('suma.txt', 'r+')
+a = int(f.readline().rstrip())
+b = int(f.readline().rstrip())
+f.write('La suma de ' + str(a) + ' y ' + str(b) + ' es ' + str(a + b))
+f.close()
