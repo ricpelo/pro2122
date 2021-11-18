@@ -1,25 +1,28 @@
+import os
+
 ARCHIVO = 'archivo.txt'
 
 def anyadir():
     cadena = input('Introduzca la cadena a añadir al archivo: ')
-    with open(ARCHIVO, 'a') as f:
+    with open(ARCHIVO, 'a', encoding='utf-8') as f:
         print(cadena, file=f)
 
 
-def cambiar():
-    def pedir_numero():
-        while True:
-            try:
-                num_linea = int(input('Introduzca el número de línea a cambiar: '))
-                if num_linea >= 1:
-                    break
-                print('El número de línea debe ser, al menos, 1.')
-            except ValueError:
-                print('Debe introducir un número')
-        return num_linea
+def pedir_numero():
+    while True:
+        try:
+            num_linea = int(input('Introduzca el número de línea: '))
+            if num_linea >= 1:
+                break
+            print('El número de línea debe ser, al menos, 1.')
+        except ValueError:
+            print('Debe introducir un número')
+    return num_linea
 
+
+def cambiar():
     num_linea = pedir_numero()
-    with open(ARCHIVO, 'r+') as f:
+    with open(ARCHIVO, 'r+', encoding='utf-8') as f:
         i = 1
         pos = 0
         linea = ''
@@ -45,12 +48,35 @@ def cambiar():
 
 
 def mostrar():
-    with open(ARCHIVO, 'r') as f:
+    with open(ARCHIVO, 'r', encoding='utf-8') as f:
         while True:
             cadena = f.readline().rstrip()
             if cadena == '':
                 break
             print(cadena)
+
+
+def eliminar_uno():
+    def limpiar_auxiliar():
+        with open('auxiliar.txt', 'w', encoding='utf-8'):
+            pass
+    num_linea = pedir_numero()
+    limpiar_auxiliar()
+    with open(ARCHIVO, 'r', encoding='utf-8') as viejo:
+        with open('auxiliar.txt', 'a', encoding='utf-8') as nuevo:
+            i = 1
+            while True:
+                linea = viejo.readline()
+                if linea == '':
+                    break
+                if i != num_linea:
+                    nuevo.write(linea)
+                i += 1
+    os.rename('auxiliar.txt', ARCHIVO)
+
+def eliminar_todos():
+    with open(ARCHIVO, 'w', encoding='utf-8'):
+        pass
 
 
 while True:
