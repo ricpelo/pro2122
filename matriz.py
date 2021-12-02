@@ -16,8 +16,11 @@ while i < len(M):
     print()
     i += 1
 
-print(M[9])
-print('Hola')
+for fila in M:
+    for e in fila:
+        print(e, end=' ')
+    print()
+
 
 def es_vocal(c):
 	return c == 'a' or c == 'e' or c == 'i' or c == 'o' or \

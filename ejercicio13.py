@@ -48,3 +48,9 @@ while i < n:
         print(i, end=' ')
     i += 1
 """
+
+p = 0
+for i in range(1, n):
+    if es_primo(i):
+        p += 1
+        print(i, end=' ')
