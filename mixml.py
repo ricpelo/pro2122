@@ -1,4 +1,6 @@
-<?xml version="1.0"?>
+import xml.etree.ElementTree as ET
+
+documento = """<?xml version="1.0"?>
 <data>
     <alumno numero="999" altura="185">
         <dni>48825438Z</dni>
@@ -24,3 +26,7 @@
         <num_hijos>2</num_hijos>
     </padre>
 </data>
+"""
+
+var = ET.fromstring(documento)
+print(type(var))

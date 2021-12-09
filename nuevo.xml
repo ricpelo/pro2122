@@ -1,0 +1,25 @@
+<data>
+    <padre>
+        <dni>777766662J</dni>
+        <nombre>Antonio Garc&#237;a</nombre>
+        <num_hijos>2</num_hijos>
+    </padre>
+<alumno numero="111" altura="185">
+        <dni>22222222</dni>
+        <nombre>
+            <propio>Manolo</propio>
+            <apellidos>Garc&#237;a</apellidos>
+        </nombre>
+        <telefono>666555444</telefono>
+        <nota>7</nota>
+    </alumno>
+    <tio /><alumno numero="777">
+        <dni>99988877K</dni>
+        <nombre>
+            <propio>Mar&#237;a</propio>
+            <apellidos>P&#233;rez</apellidos>
+        </nombre>
+        <telefono>666444222</telefono>
+        <nota>9</nota>
+    </alumno>
+    <madre><nombre>Isabel</nombre></madre><tia /></data>
