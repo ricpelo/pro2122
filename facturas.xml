@@ -1,0 +1,48 @@
+<facturas>
+    <pedido numero="XAMJW">
+        <cliente numero="2222">
+            <dni>33333333M</dni>
+            <nombre>Mar&#237;a L&#243;pez</nombre>
+        </cliente>
+        <articulo numero="5555">
+            <denominacion>Tornillo de 4 mm.</denominacion>
+            <precio>80</precio>
+            <cantidad>50</cantidad>
+        </articulo>
+        <factura numero="PP84/11" />
+    </pedido>
+    <factura numero="PP84/32">
+        <cliente numero="4453">
+            <dni>1111111111111B</dni>
+            <nombre>Pepe Mart&#237;nez</nombre>
+        </cliente>
+        <fecha>2021-12-08</fecha>
+        <articulo numero="8798">
+            <denominacion>Papas de la Colonia</denominacion>
+            <precio>2</precio>
+            <cantidad>5</cantidad>
+        </articulo>
+        <articulo numero="1123">
+            <denominacion>Tapines</denominacion>
+            <precio>3.50</precio>
+            <cantidad>4</cantidad>
+        </articulo>
+        <articulo numero="2368">
+            <denominacion>Calabacines</denominacion>
+            <precio>1.50</precio>
+            <cantidad>7.50</cantidad>
+        </articulo>
+    </factura>
+    <factura numero="PP84/55">
+        <cliente numero="1234">
+            <dni>999877A</dni>
+            <nombre>Ana Robles</nombre>
+        </cliente>
+        <fecha>2021-12-09</fecha>
+        <articulo numero="1123">
+            <denominacion>Tapines</denominacion>
+            <precio>3.50</precio>
+            <cantidad>9</cantidad>
+        </articulo>
+    </factura>
+</facturas>
