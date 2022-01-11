@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<raiz>
+    <alumno num_mat="1234">
+        <nombre>Pepe González</nombre>
+        <nota>6</nota>
+    </alumno>
+    <alumno num_mat="5678">
+        <nombre>María Martínez</nombre>
+        <nota>9</nota>
+    </alumno>
+</raiz>
