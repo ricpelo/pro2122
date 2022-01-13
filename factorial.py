@@ -28,3 +28,6 @@ def fact(n):
         n -= 1
         return fact_iter(acc)
     return fact_iter(1)
+
+def _hola():
+    print('Hola')

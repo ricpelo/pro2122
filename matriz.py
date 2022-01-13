@@ -23,6 +23,6 @@ for fila in M:
 
 
 def es_vocal(c):
-	return c == 'a' or c == 'e' or c == 'i' or c == 'o' or \
-	       c == 'u' or c == 'A' or c == 'E' or c == 'I' or \
-				 c == 'O' or c == 'U'
+    return c == 'a' or c == 'e' or c == 'i' or c == 'o' or \
+           c == 'u' or c == 'A' or c == 'E' or c == 'I' or \
+           c == 'O' or c == 'U'
