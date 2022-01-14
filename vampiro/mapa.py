@@ -43,3 +43,9 @@ MAPA = {
         }
     }
 }
+
+def nombre(loc):
+    return MAPA[loc][NOMBRE]
+
+def descripcion(loc):
+    return MAPA[loc][DESCRIPCION]
