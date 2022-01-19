@@ -38,8 +38,10 @@ def analizar(entrada: str) -> bool:
 
     try:
         palabra = v.VOCABULARIO[lexemas[0]]
+
         if palabra[v.TIPO] == v.TIPO_VERBO:
             verbo = palabra[v.TOKEN]
+
             if len(lexemas) == 1:
                 return True
 
@@ -48,14 +50,9 @@ def analizar(entrada: str) -> bool:
                 if palabra[v.TIPO] == v.TIPO_NOMBRE:
                     nombre = palabra[v.TOKEN]
                     return True
-                else:
-                    verbo, nombre = None, None
-                    return False
-            else:
-                verbo, nombre = None, None
-                return False
-        else:
-            return False
+
     except KeyError:
-        verbo, nombre = None, None
-        return False
+        pass
+
+    verbo, nombre = None, None
+    return False
