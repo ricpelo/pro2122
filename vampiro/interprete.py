@@ -37,18 +37,18 @@ def analizar(entrada: str) -> bool:
         return True
 
     try:
-        palabra = v.VOCABULARIO[lexemas[0]]
+        palabra = v.buscar(lexemas[0])
 
-        if palabra[v.TIPO] == v.TIPO_VERBO:
-            verbo = palabra[v.TOKEN]
+        if v.tipo(palabra) == v.TIPO_VERBO:
+            verbo = v.token(palabra)
 
             if len(lexemas) == 1:
                 return True
 
             if len(lexemas) == 2:
-                palabra = v.VOCABULARIO[lexemas[1]]
-                if palabra[v.TIPO] == v.TIPO_NOMBRE:
-                    nombre = palabra[v.TOKEN]
+                palabra = v.buscar(lexemas[1])
+                if v.tipo(palabra) == v.TIPO_NOMBRE:
+                    nombre = v.token(palabra)
                     return True
 
     except KeyError:
