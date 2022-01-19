@@ -15,10 +15,17 @@ while True:
     entrada = input('>> ')
 
     if interprete.analizar(entrada):
-        if interprete.verbo == v.NORTE:
-            print('Intentamos mover al jugador al norte.')
-        elif interprete.verbo == v.SUR:
-            print('Intentamos mover al jugador al sur.')
+        if interprete.verbo == v.NORTE or \
+           interprete.verbo == v.SUR or \
+           interprete.verbo == v.ESTE or \
+           interprete.verbo == v.OESTE:
+            if mapa.hay_salida(jugador.localidad, interprete.verbo):
+                destino = mapa.destino(jugador.localidad, interprete.verbo)
+                jugador.localidad = destino
+                print(mapa.nombre(jugador.localidad))
+                print(mapa.descripcion(jugador.localidad))
+            else:
+                print('No hay salida en esa dirección.')
         elif interprete.verbo == v.COGER:
             if interprete.nombre is None:
                 print('¿Qué quieres que coja?')

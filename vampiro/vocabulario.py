@@ -22,7 +22,7 @@ FIN = 'fin'
 # Nombres:
 CUCHILLO = 'cuchillo'
 
-VOCABULARIO = {
+_VOCABULARIO = {
     'COGER': {
         TOKEN: COGER,
         TIPO: TIPO_VERBO
@@ -71,7 +71,7 @@ def buscar(lexema):
         KeyError: Si en el diccionario no hay ninguna palabra
                   con ese lexema.
     """
-    return VOCABULARIO[lexema]
+    return _VOCABULARIO[lexema]
 
 def tipo(palabra):
     """

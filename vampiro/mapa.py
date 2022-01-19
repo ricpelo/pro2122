@@ -47,3 +47,9 @@ def nombre(loc):
 
 def descripcion(loc):
     return _MAPA[loc][_DESCRIPCION]
+
+def hay_salida(localidad, direccion):
+    return direccion in _MAPA[localidad][_CONEXIONES]
+
+def destino(localidad, direccion):
+    return _MAPA[localidad][_CONEXIONES].get(direccion)
