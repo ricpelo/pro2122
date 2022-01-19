@@ -3,16 +3,13 @@ El mapa del juego y todo lo relacionado con las localidades
 del juego.
 """
 
+from vocabulario import NORTE, SUR, ESTE, OESTE
+
 # Propiedades de cada localidad:
 _NOMBRE = 'nombre'
 _DESCRIPCION = 'descripcion'
 _CONEXIONES = 'conexiones'
 
-# Posibles conexiones de una localidad a la otra:
-NORTE = 'norte'
-SUR = 'sur'
-ESTE = 'este'
-OESTE = 'oeste'
 
 # Identificadores de las localidades:
 VESTIBULO = 'vestibulo'
