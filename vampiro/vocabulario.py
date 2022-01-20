@@ -18,44 +18,33 @@ OESTE = 'oeste'
 COGER = 'coger'
 DEJAR = 'dejar'
 FIN = 'fin'
+MIRAR = 'mirar'
 
 # Nombres:
 CUCHILLO = 'cuchillo'
 
+# Vocabulario:
 _VOCABULARIO = {
-    'COGER': {
-        TOKEN: COGER,
-        TIPO: TIPO_VERBO
-    },
-    'TOMAR': {
-        TOKEN: COGER,
-        TIPO: TIPO_VERBO
-    },
-    'CUCHILLO': {
-        TOKEN: CUCHILLO,
-        TIPO: TIPO_NOMBRE
-    },
-    'NORTE': {
-        TOKEN: NORTE,
-        TIPO: TIPO_VERBO
-    },
-    'N': {
-        TOKEN: NORTE,
-        TIPO: TIPO_VERBO
-    },
-    'SUR': {
-        TOKEN: SUR,
-        TIPO: TIPO_VERBO,
-    },
-    'S': {
-        TOKEN: SUR,
-        TIPO: TIPO_VERBO,
-    },
-    'FIN': {
-        TOKEN: FIN,
-        TIPO: TIPO_VERBO,
-    }
+    COGER: (TIPO_VERBO, ['COGER', 'TOMAR']),
+    NORTE: (TIPO_VERBO, ['NORTE', 'N']),
+    SUR: (TIPO_VERBO, ['SUR', 'S']),
+    ESTE: (TIPO_VERBO, ['ESTE', 'E']),
+    OESTE: (TIPO_VERBO, ['OESTE', 'O']),
+    FIN: (TIPO_VERBO, ['FIN', 'ACABAR', 'TERMINAR', 'FINALIZAR']),
+    CUCHILLO: (TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA']),
+    MIRAR: (TIPO_VERBO, ['MIRAR', 'M', 'L'])
 }
+
+_vocabulario = {}
+
+def crear_vocabulario():
+    global _vocabulario
+
+    for token, tupla in _VOCABULARIO.items():
+        tipo, lexemas = tupla
+        palabra = { TOKEN: token, TIPO: tipo }
+        for lexema in lexemas:
+            _vocabulario[lexema] = palabra
 
 def buscar(lexema):
     """
@@ -71,7 +60,7 @@ def buscar(lexema):
         KeyError: Si en el diccionario no hay ninguna palabra
                   con ese lexema.
     """
-    return _VOCABULARIO[lexema]
+    return _vocabulario[lexema]
 
 def tipo(palabra):
     """
@@ -110,3 +99,5 @@ def token(palabra):
         El token de la palabra.
     """
     return palabra[TOKEN]
+
+crear_vocabulario()

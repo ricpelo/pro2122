@@ -4,34 +4,31 @@ El controlador.
 
 import jugador
 import mapa
-import interprete
+import interprete as i
 import vocabulario as v
 
-print(mapa.nombre(jugador.localidad))
-print(mapa.descripcion(jugador.localidad))
+mapa.describir(jugador.localidad)
 
 while True:
     print()
     entrada = input('>> ')
 
-    if interprete.analizar(entrada):
-        if interprete.verbo == v.NORTE or \
-           interprete.verbo == v.SUR or \
-           interprete.verbo == v.ESTE or \
-           interprete.verbo == v.OESTE:
-            if mapa.hay_salida(jugador.localidad, interprete.verbo):
-                destino = mapa.destino(jugador.localidad, interprete.verbo)
+    if i.analizar(entrada):
+        if i.verbo in (v.NORTE, v.SUR, v.ESTE, v.OESTE):
+            if mapa.hay_salida(jugador.localidad, i.verbo):
+                destino = mapa.destino(jugador.localidad, i.verbo)
                 jugador.localidad = destino
-                print(mapa.nombre(jugador.localidad))
-                print(mapa.descripcion(jugador.localidad))
+                mapa.describir(jugador.localidad)
             else:
                 print('No hay salida en esa dirección.')
-        elif interprete.verbo == v.COGER:
-            if interprete.nombre is None:
+        elif i.verbo == v.COGER:
+            if i.nombre is None:
                 print('¿Qué quieres que coja?')
             else:
                 print('El jugador intenta coger algo...')
-        elif interprete.verbo == v.FIN:
+        elif i.verbo == v.MIRAR:
+            mapa.describir(jugador.localidad)
+        elif i.verbo == v.FIN:
             print('Gracias por jugar.')
             break
     else:

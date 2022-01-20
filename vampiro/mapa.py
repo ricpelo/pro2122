@@ -53,3 +53,7 @@ def hay_salida(localidad, direccion):
 
 def destino(localidad, direccion):
     return _MAPA[localidad][_CONEXIONES].get(direccion)
+
+def describir(localidad):
+    print(nombre(localidad))
+    print(descripcion(localidad))
