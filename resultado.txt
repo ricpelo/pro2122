@@ -1,0 +1,6 @@
+Ud Denominación    Precio Importe
+-- --------------- ------ -------
+ 2 Tuercas           3.70    7.40
+ 6 Tornillos         2.20   13.20
+---------------------------------
+TOTAL:                      20.60

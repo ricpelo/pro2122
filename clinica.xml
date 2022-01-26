@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<clinica>
+    <socios>
+        <socio id="35">
+            <nombre>Linus Torvalds</nombre>
+            <compania>Adeslas</compania>
+        </socio>
+        <socio id="881">
+            <nombre>Richard Stallman</nombre>
+            <compania>Mapfre</compania>
+        </socio>
+    </socios>
+    <medicos>
+        <medico id="A49">
+            <nombre>Antonio Rodríguez</nombre>
+            <especialidad>Urología</especialidad>
+            <companias>
+                <compania>Mapfre</compania>
+                <compania>Sanitas</compania>
+            </companias>
+        </medico>
+        <medico id="J82">
+            <nombre>Javier Robles</nombre>
+            <especialidad>Cirugía</especialidad>
+            <companias>
+                <compania>Adeslas</compania>
+            </companias>
+        </medico>
+    </medicos>
+</clinica>
