@@ -1,12 +1,12 @@
 class Cliente:
     def __init__(self, dni, nombre, apellidos, telefono):
-        self._dni = dni
-        self._nombre = nombre
-        self._apellidos = apellidos
-        self._telefono = telefono
+        self.__set_dni(dni)
+        self.set_nombre(nombre)
+        self.set_apellidos(apellidos)
+        self.set_telefono(telefono)
 
     def __eq__(self, otro):
-        if type(self) != type(otro):
+        if not isinstance(otro, type(self)):
             return NotImplemented
 
         return self.dni() == otro.dni()
@@ -15,20 +15,34 @@ class Cliente:
         return hash(self.dni())
 
     def __repr__(self):
-        d = self._dni
-        n = self._nombre
-        a = self._apellidos
-        t = self._telefono
+        d = self.dni()
+        n = self.nombre()
+        a = self.apellidos()
+        t = self.telefono()
         return f'Cliente({d!r},{n!r},{a!r},{t!r})'
 
     def dni(self):
-        return self._dni
+        return self.__dni
+
+    def __set_dni(self, dni):
+        self.__dni = dni
 
     def nombre(self):
-        return self._nombre
+        return self.__nombre
+
+    def set_nombre(self, nombre):
+        self.__nombre = nombre
 
     def apellidos(self):
-        return self._apellidos
+        return self.__apellidos
+
+    def set_apellidos(self, apellidos):
+        self.__apellidos = apellidos
 
     def telefono(self):
-        return self._telefono
+        return self.__telefono
+
+    def set_telefono(self, telefono):
+        if len(str(telefono)) != 9:
+            raise ValueError('El teléfono debe tener 9 dígitos.')
+        self.__telefono = telefono
