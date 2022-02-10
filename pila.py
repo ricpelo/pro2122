@@ -1,3 +1,10 @@
+"""
+Módulo pila.py:
+---------------
+
+sldñflñsdkfñlsk flsñ kflñsk flñsk flñskfñskfñslk ñk la
+"""
+
 class Pila:
     """
     Invariante:
@@ -37,9 +44,25 @@ class Pila:
         return self.__elementos[-1]
 
     def desapilar(self):
+        """
+        Saca el elemento situado en la cima de la pila (siempre
+        que ésta no sea vacía) y lo devuelve. En caso de ser
+        vacía, lanza una excepción de tipo ValueError.
+
+        Returns:
+            Any: El elemento que se ha desapilado.
+
+        Pre: not self.es_vacia()
+        Post: Se devuelve el elemento que estaba en la cima de la
+              pila, y además ahora la pila tiene un elemento menos.
+        """
         self.__comprobar_no_vacia()
         self.__num_desapilar += 1
-        return self.__elementos.pop()
+        num_antes = len(self)
+        elem_cima = self.cima()
+        res = self.__elementos.pop()
+        assert len(self) == num_antes - 1 and elem_cima == res
+        return res
 
     def get_num_apilar(self):
         return self.__num_apilar

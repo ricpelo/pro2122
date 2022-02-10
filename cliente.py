@@ -1,4 +1,8 @@
 class Cliente:
+    """
+    Invariante:
+        El teléfono tiene que tener 9 dígitos.
+    """
     def __init__(self, dni, nombre, apellidos, telefono):
         self.__set_dni(dni)
         self.set_nombre(nombre)
@@ -37,12 +41,20 @@ class Cliente:
         return self.__apellidos
 
     def set_apellidos(self, apellidos):
+        """
+        Pre: True
+        Post: self.apellidos() == apellidos
+        """
         self.__apellidos = apellidos
+        assert self.apellidos() == apellidos
 
     def telefono(self):
         return self.__telefono
 
     def set_telefono(self, telefono):
+        """
+        Pre: El teléfono tiene que tener 9 dígitos.
+        """
         if len(str(telefono)) != 9:
             raise ValueError('El teléfono debe tener 9 dígitos.')
         self.__telefono = telefono

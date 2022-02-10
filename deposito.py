@@ -22,6 +22,7 @@ class Deposito:
             self.__historial = []
         else:
             self.__historial = historial
+        assert self.saldo() == fondos
 
     def __eq__(self, otro):
         """
@@ -48,19 +49,23 @@ class Deposito:
         Post: saldo_nuevo == saldo_viejo + cantidad
         """
         self.__cantidad_positiva(cantidad)
+        saldo_viejo = self.saldo()
         self.__fondos += cantidad
         self.__historial.append(f'Ingresa {cantidad}')
+        assert self.saldo() == saldo_viejo + cantidad
 
     def retirar(self, cantidad):
         """
-        Pre: cantidad >= 0
+        Pre: cantidad >= 0 and cantidad <= self.saldo()
         Post: saldo_nuevo == saldo_viejo - cantidad
         """
         self.__cantidad_positiva(cantidad)
         if self.__fondos < cantidad:
             raise ValueError('No hay suficientes fondos')
+        saldo_viejo = self.saldo()
         self.__fondos -= cantidad
         self.__historial.append(f'Retira {cantidad}')
+        assert self.saldo() == saldo_viejo - cantidad
 
     def __cantidad_positiva(self, cantidad):
         if cantidad < 0:
