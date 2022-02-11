@@ -2,102 +2,124 @@
 El vocabulario del juego.
 """
 
-# Propiedades de las palabras:
-TOKEN = 'token'
-TIPO = 'tipo'
+class Tipo:
+    pass
 
-# Tipos de palabras:
-TIPO_VERBO = 'tipo_verbo'
-TIPO_NOMBRE = 'tipo_nombre'
+TIPO_VERBO = Tipo()
+TIPO_NOMBRE = Tipo()
 
-# Verbos:
-NORTE = 'norte'
-SUR = 'sur'
-ESTE = 'este'
-OESTE = 'oeste'
-COGER = 'coger'
-DEJAR = 'dejar'
-FIN = 'fin'
-MIRAR = 'mirar'
+class Palabra:
+    # tipo
+    # token ?
+    # lexemas
+    def __init__(self, tipo, lexemas):
+        self.__tipo = tipo
+        self.__lexemas = lexemas
 
-# Nombres:
-CUCHILLO = 'cuchillo'
+    def tipo(self):
+        return self.__tipo
 
-# Vocabulario:
-_VOCABULARIO = {
-    COGER: (TIPO_VERBO, ['COGER', 'TOMAR']),
-    NORTE: (TIPO_VERBO, ['NORTE', 'N']),
-    SUR: (TIPO_VERBO, ['SUR', 'S']),
-    ESTE: (TIPO_VERBO, ['ESTE', 'E']),
-    OESTE: (TIPO_VERBO, ['OESTE', 'O']),
-    FIN: (TIPO_VERBO, ['FIN', 'ACABAR', 'TERMINAR', 'FINALIZAR']),
-    CUCHILLO: (TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA']),
-    MIRAR: (TIPO_VERBO, ['MIRAR', 'M', 'L'])
-}
+    def lexemas(self):
+        return self.__lexemas[:]
 
-_vocabulario = {}
+COGER = Palabra(TIPO_VERBO, ['COGER', 'TOMAR'])
+CUCHILLO = Palabra(TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA'])
 
-def crear_vocabulario():
-    global _vocabulario
+class Vocabulario:
+    # palabras
+    def __init__(self):
+        self.__palabras = {}
 
-    for token, tupla in _VOCABULARIO.items():
-        tipo, lexemas = tupla
-        palabra = { TOKEN: token, TIPO: tipo }
-        for lexema in lexemas:
-            _vocabulario[lexema] = palabra
+    def meter_palabra(self, palabra):
+        for lexema in palabra.lexemas():
+            self.__palabras[lexema] = palabra
 
-def buscar(lexema):
-    """
-    Busca una palabra en el diccionario a partir de un lexema.
+    def meter_palabras(self, palabras):
+        for palabra in palabras:
+            self.meter_palabra(palabra)
 
-    Args:
-        lexema (str): El lexema de la palabra a buscar.
+    def buscar_palabra(self, lexema):
+        return self.__palabras[lexema]
 
-    Returns:
-        La palabra.
+vocabulario = Vocabulario()
+vocabulario.meter_palabras([COGER, CUCHILLO])
 
-    Raises:
-        KeyError: Si en el diccionario no hay ninguna palabra
-                  con ese lexema.
-    """
-    return _vocabulario[lexema]
 
-def tipo(palabra):
-    """
-    Devuelve el tipo de la palabra recibida como argumento.
+# # Vocabulario:
+# _VOCABULARIO = {
+#     COGER: (TIPO_VERBO, ['COGER', 'TOMAR']),
+#     NORTE: (TIPO_VERBO, ['NORTE', 'N']),
+#     SUR: (TIPO_VERBO, ['SUR', 'S']),
+#     ESTE: (TIPO_VERBO, ['ESTE', 'E']),
+#     OESTE: (TIPO_VERBO, ['OESTE', 'O']),
+#     FIN: (TIPO_VERBO, ['FIN', 'ACABAR', 'TERMINAR', 'FINALIZAR']),
+#     CUCHILLO: (TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA']),
+#     MIRAR: (TIPO_VERBO, ['MIRAR', 'M', 'L'])
+# }
 
-    Precondición:
-        La palabra recibida debe ser una palabra válida y
-        correctamente formada. Eso significa que:
+# _vocabulario = {}
 
-        - No puede ser None.
-        - Debe contener un Tipo y un Token.
+# def crear_vocabulario():
+#     global _vocabulario
 
-    Args:
-        palabra: La palabra.
+#     for token, tupla in _VOCABULARIO.items():
+#         tipo, lexemas = tupla
+#         palabra = { TOKEN: token, TIPO: tipo }
+#         for lexema in lexemas:
+#             _vocabulario[lexema] = palabra
 
-    Returns:
-        El tipo de la palabra.
-    """
-    return palabra[TIPO]
+# def buscar(lexema):
+#     """
+#     Busca una palabra en el diccionario a partir de un lexema.
 
-def token(palabra):
-    """
-    Devuelve el token de la palabra recibida como argumento.
+#     Args:
+#         lexema (str): El lexema de la palabra a buscar.
 
-    Precondición:
-        La palabra recibida debe ser una palabra válida y
-        correctamente formada. Eso significa que:
+#     Returns:
+#         La palabra.
 
-        - No puede ser None.
-        - Debe contener un Tipo y un Token.
+#     Raises:
+#         KeyError: Si en el diccionario no hay ninguna palabra
+#                   con ese lexema.
+#     """
+#     return _vocabulario[lexema]
 
-    Args:
-        palabra: La palabra.
+# def tipo(palabra):
+#     """
+#     Devuelve el tipo de la palabra recibida como argumento.
 
-    Returns:
-        El token de la palabra.
-    """
-    return palabra[TOKEN]
+#     Precondición:
+#         La palabra recibida debe ser una palabra válida y
+#         correctamente formada. Eso significa que:
 
-crear_vocabulario()
+#         - No puede ser None.
+#         - Debe contener un Tipo y un Token.
+
+#     Args:
+#         palabra: La palabra.
+
+#     Returns:
+#         El tipo de la palabra.
+#     """
+#     return palabra[TIPO]
+
+# def token(palabra):
+#     """
+#     Devuelve el token de la palabra recibida como argumento.
+
+#     Precondición:
+#         La palabra recibida debe ser una palabra válida y
+#         correctamente formada. Eso significa que:
+
+#         - No puede ser None.
+#         - Debe contener un Tipo y un Token.
+
+#     Args:
+#         palabra: La palabra.
+
+#     Returns:
+#         El token de la palabra.
+#     """
+#     return palabra[TOKEN]
+
+# crear_vocabulario()
