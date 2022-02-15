@@ -2,31 +2,7 @@
 El vocabulario del juego.
 """
 
-class Tipo:
-    pass
-
-TIPO_VERBO = Tipo()
-TIPO_NOMBRE = Tipo()
-
-class Palabra:
-    # tipo
-    # token ?
-    # lexemas
-    def __init__(self, tipo, lexemas):
-        self.__tipo = tipo
-        self.__lexemas = lexemas
-
-    def tipo(self):
-        return self.__tipo
-
-    def lexemas(self):
-        return self.__lexemas[:]
-
-COGER = Palabra(TIPO_VERBO, ['COGER', 'TOMAR'])
-CUCHILLO = Palabra(TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA'])
-
 class Vocabulario:
-    # palabras
     def __init__(self):
         self.__palabras = {}
 
@@ -34,28 +10,71 @@ class Vocabulario:
         for lexema in palabra.lexemas():
             self.__palabras[lexema] = palabra
 
-    def meter_palabras(self, palabras):
-        for palabra in palabras:
-            self.meter_palabra(palabra)
+    # def meter_palabras(self, palabras):
+    #     for palabra in palabras:
+    #         self.meter_palabra(palabra)
 
     def buscar_palabra(self, lexema):
-        return self.__palabras[lexema]
+        return self.__palabras.get(lexema)
 
 vocabulario = Vocabulario()
-vocabulario.meter_palabras([COGER, CUCHILLO])
 
+class Tipo:
+    def __init__(self, tipo):
+        self.__tipo = tipo
 
-# # Vocabulario:
-# _VOCABULARIO = {
-#     COGER: (TIPO_VERBO, ['COGER', 'TOMAR']),
-#     NORTE: (TIPO_VERBO, ['NORTE', 'N']),
-#     SUR: (TIPO_VERBO, ['SUR', 'S']),
-#     ESTE: (TIPO_VERBO, ['ESTE', 'E']),
-#     OESTE: (TIPO_VERBO, ['OESTE', 'O']),
-#     FIN: (TIPO_VERBO, ['FIN', 'ACABAR', 'TERMINAR', 'FINALIZAR']),
-#     CUCHILLO: (TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA']),
-#     MIRAR: (TIPO_VERBO, ['MIRAR', 'M', 'L'])
-# }
+    def __eq__(self, otro):
+        if not isinstance(otro, type(self)):
+            return NotImplemented
+        return self.__tipo == otro.__tipo
+
+    def __hash__(self):
+        return hash(self.__tipo)
+
+    def __repr__(self):
+        return f'Tipo({self.__tipo!r})'
+
+TIPO_VERBO = Tipo('VERBO')
+TIPO_NOMBRE = Tipo('NOMBRE')
+
+class Palabra:
+    def __init__(self, tipo, lexemas):
+        self.__tipo = tipo
+        self.__lexemas = frozenset(lexemas)
+        for lexema in lexemas:
+            if vocabulario.buscar_palabra(lexema):
+                raise ValueError(f'Ya hay una palabra con el lexema {lexema}.')
+        vocabulario.meter_palabra(self)
+
+    def __eq__(self, otro):
+        """
+        Dos palabras son iguales si tienen, al menos, un
+        lexema en común.
+        """
+        if not isinstance(otro, type(self)):
+            return NotImplemented
+        return self.lexemas() & otro.lexemas() != frozenset()
+
+    def __hash__(self):
+        return hash(self.__lexemas)
+
+    def __repr__(self):
+        return f'Palabra({self.tipo()!r}, {self.lexemas()!r})'
+
+    def tipo(self):
+        return self.__tipo
+
+    def lexemas(self):
+        return self.__lexemas
+
+COGER    = Palabra(TIPO_VERBO, ['COGER', 'TOMAR'])
+CUCHILLO = Palabra(TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA'])
+NORTE    = Palabra(TIPO_VERBO, ['NORTE', 'N'])
+SUR      = Palabra(TIPO_VERBO, ['SUR', 'S'])
+ESTE     = Palabra(TIPO_VERBO, ['ESTE', 'E'])
+OESTE    = Palabra(TIPO_VERBO, ['OESTE', 'O'])
+FIN      = Palabra(TIPO_VERBO, ['FIN', 'ACABAR', 'TERMINAR', 'FINALIZAR'])
+MIRAR    = Palabra(TIPO_VERBO, ['MIRAR', 'M', 'L'])
 
 # _vocabulario = {}
 
