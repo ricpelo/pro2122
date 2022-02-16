@@ -2,23 +2,6 @@
 El vocabulario del juego.
 """
 
-class Vocabulario:
-    def __init__(self):
-        self.__palabras = {}
-
-    def meter_palabra(self, palabra):
-        for lexema in palabra.lexemas():
-            self.__palabras[lexema] = palabra
-
-    # def meter_palabras(self, palabras):
-    #     for palabra in palabras:
-    #         self.meter_palabra(palabra)
-
-    def buscar_palabra(self, lexema):
-        return self.__palabras.get(lexema)
-
-vocabulario = Vocabulario()
-
 class Tipo:
     def __init__(self, tipo):
         self.__tipo = tipo
@@ -38,13 +21,25 @@ TIPO_VERBO = Tipo('VERBO')
 TIPO_NOMBRE = Tipo('NOMBRE')
 
 class Palabra:
+    __palabras = []
+
+    # @staticmethod
+    # def buscar(lexema):
+    #     for palabra in Palabra.__palabras:
+    #         if lexema in palabra.lexemas():
+    #             return palabra
+    #     return None
+
+    @staticmethod
+    def palabras():
+        return Palabra.__palabras[:]
+
     def __init__(self, tipo, lexemas):
         self.__tipo = tipo
         self.__lexemas = frozenset(lexemas)
-        for lexema in lexemas:
-            if vocabulario.buscar_palabra(lexema):
-                raise ValueError(f'Ya hay una palabra con el lexema {lexema}.')
-        vocabulario.meter_palabra(self)
+        if self in Palabra.__palabras:
+            raise ValueError('Esa palabra ya existe.')
+        Palabra.__palabras.append(self)
 
     def __eq__(self, otro):
         """
@@ -55,9 +50,6 @@ class Palabra:
             return NotImplemented
         return self.lexemas() & otro.lexemas() != frozenset()
 
-    def __hash__(self):
-        return hash(self.__lexemas)
-
     def __repr__(self):
         return f'Palabra({self.tipo()!r}, {self.lexemas()!r})'
 
@@ -67,6 +59,24 @@ class Palabra:
     def lexemas(self):
         return self.__lexemas
 
+class Vocabulario:
+    def __init__(self):
+        self.__palabras = {}
+
+    def meter_palabra(self, palabra):
+        for lexema in palabra.lexemas():
+            self.__palabras[lexema] = palabra
+
+    def meter_palabras(self, palabras):
+        for palabra in palabras:
+            self.meter_palabra(palabra)
+
+    def buscar_palabra(self, lexema):
+        return self.__palabras.get(lexema)
+
+    def palabras(self):
+        return self.__palabras.copy()
+
 COGER    = Palabra(TIPO_VERBO, ['COGER', 'TOMAR'])
 CUCHILLO = Palabra(TIPO_NOMBRE, ['CUCHILLO', 'NAVAJA'])
 NORTE    = Palabra(TIPO_VERBO, ['NORTE', 'N'])
@@ -75,6 +85,9 @@ ESTE     = Palabra(TIPO_VERBO, ['ESTE', 'E'])
 OESTE    = Palabra(TIPO_VERBO, ['OESTE', 'O'])
 FIN      = Palabra(TIPO_VERBO, ['FIN', 'ACABAR', 'TERMINAR', 'FINALIZAR'])
 MIRAR    = Palabra(TIPO_VERBO, ['MIRAR', 'M', 'L'])
+
+vocabulario = Vocabulario()
+vocabulario.meter_palabras(Palabra.palabras())
 
 # _vocabulario = {}
 
