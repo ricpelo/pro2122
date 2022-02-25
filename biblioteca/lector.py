@@ -28,10 +28,27 @@ class Lector:
         return 1 if len(Lector.__lectores) == 0 else \
                max(Lector.__lectores) + 1
 
-    def __init__(self, nombre):
-        self.__numero = Lector.__siguiente_numero_libre()
+    def __init__(self, nombre, numero=None):
+        if numero is None:
+            self.__numero = Lector.__siguiente_numero_libre()
+        else:
+            if Lector.__buscar(numero) is None:
+                self.__numero = numero
+            else:
+                raise ValueError('Ya existe un lector con ese número')
         self.set_nombre(nombre)
         Lector.__insertar(self)
+
+    def __eq__(self, otro):
+        if not isinstance(otro, type(self)):
+            return NotImplemented
+        return self.get_numero() == otro.get_numero()
+
+    def __hash__(self):
+        return hash(self.get_numero())
+
+    def __repr__(self):
+        return f'Lector({self.get_nombre()!r}, {self.get_numero()!r})'
 
     def get_numero(self):
         return self.__numero
