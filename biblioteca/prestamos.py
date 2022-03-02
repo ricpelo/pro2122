@@ -6,36 +6,20 @@ licencia: GPL-3 <https://www.gnu.org/licenses/gpl-3.0.txt>
 
 import datetime
 
-class Prestamo:
-    __prestamos = {}
+from numerable import Numerable
 
-    @staticmethod
-    def __insertar(prestamo):
-        Prestamo.__prestamos[prestamo.get_numero()] = prestamo
-
-    @staticmethod
-    def __buscar(numero):
-        return Prestamo.__prestamos.get(numero)
-
-    @staticmethod
-    def __borrar(prestamo):
-        del Prestamo.__prestamos[prestamo.get_numero()]
-
-    @staticmethod
-    def __siguiente_numero_libre():
-        return 1 if len(Prestamo.__prestamos) == 0 else \
-               max(Prestamo.__prestamos) + 1
-
+class Prestamo(Numerable):
     def __init__(self, lector, prestable):
         if not prestable.es_prestable():
             raise ValueError('Ese fondo no se puede prestar')
-        if not prestable.disponible():
+        if not prestable.esta_disponible():
             raise ValueError('Ese fondo no está disponible')
+        super().__init__()
+        prestable.set_disponible(False)
         self.__lector = lector
         self.__prestable = prestable
         self.__fecha_prestamo = datetime.date.today()
         self.__fecha_devolucion = None
-        self.__numero = Prestamo._siguiente_numero_libre()
 
     def get_lector(self):
         return self.__lector

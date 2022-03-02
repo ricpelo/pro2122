@@ -5,36 +5,12 @@ licencia: GPL-3 <https://www.gnu.org/licenses/gpl-3.0.txt>
 """
 
 from abc import ABC, abstractmethod
+from numerable import Numerable
 
-class Fondo(ABC):
-    __fondos = {}
-
-    @staticmethod
-    def _insertar(fondo):
-        Fondo.__fondos[fondo.get_numero()] = fondo
-
-    @staticmethod
-    def _buscar(numero):
-        return Fondo.__fondos.get(numero)
-
-    @staticmethod
-    def _borrar(fondo):
-        del Fondo.__fondos[fondo.get_numero()]
-
-    @staticmethod
-    def _siguiente_numero_libre():
-        return 1 if len(Fondo.__fondos) == 0 else \
-               max(Fondo.__fondos) + 1
-
+class Fondo(Numerable, ABC):
     @abstractmethod
     def es_prestable(self):
         ...
-
-    def __init__(self):
-        self.__numero = Fondo._siguiente_numero_libre()
-
-    def get_numero(self):
-        return self.__numero
 
 
 class Prestable(Fondo, ABC):
@@ -49,7 +25,7 @@ class Prestable(Fondo, ABC):
         super().__init__()
         self.__disponible = True
 
-    def get_disponible(self):
+    def esta_disponible(self):
         return self.__disponible
 
     def set_disponible(self, disponible):
@@ -119,34 +95,5 @@ class NoPrestable(Fondo, ABC):
         return False
 
 
-class Enciclopedia(NoPrestable):
-    def __init__(self, signatura, titulo, autor, num_paginas):
-        super().__init__()
-        self.set_signatura(signatura)
-        self.set_titulo(titulo)
-        self.set_autor(autor)
-        self.set_num_paginas(num_paginas)
-
-    def get_signatura(self):
-        return self.__signatura
-
-    def set_signatura(self, signatura):
-        self.__signatura = signatura
-
-    def get_titulo(self):
-        return self.__titulo
-
-    def set_titulo(self, titulo):
-        self.__titulo = titulo
-
-    def get_autor(self):
-        return self.__autor
-
-    def set_autor(self, autor):
-        self.__autor = autor
-
-    def get_num_paginas(self):
-        return self.__num_paginas
-
-    def set_num_paginas(self, num_paginas):
-        self.__num_paginas = num_paginas
+class Enciclopedia(NoPrestable, Libro):
+    pass
