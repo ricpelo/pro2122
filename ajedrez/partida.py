@@ -33,3 +33,12 @@ class Partida:
 
     def get_color_negro(self):
         return self.__color_negro
+
+    def quien_gana_en_puntos(self):
+        piezas_blancas = self.get_tablero().devolver_piezas(self.get_color_blanco())
+        piezas_negras = self.get_tablero().devolver_piezas(self.get_color_negro())
+        if len(piezas_blancas) == len(piezas_negras):
+            return None
+        if len(piezas_blancas) > len(piezas_negras):
+            return self.get_jugador_blancas()
+        return self.get_jugador_negras()
