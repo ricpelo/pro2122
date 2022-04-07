@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Tabla {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
         int n;
 
         for (;;) {
@@ -24,11 +25,23 @@ public class Tabla {
         }
 
         for (int i = 0; i <= 10; i++) {
-            System.out.print(n);
-            System.out.print(" x ");
-            System.out.print(i);
-            System.out.print(" = ");
-            System.out.println(n * i);
+            // Opción 1:
+            // System.out.print(n);
+            // System.out.print(" x ");
+            // System.out.print(i);
+            // System.out.print(" = ");
+            // System.out.println(n * i);
+            // System.out.println(n + " x " + i + " = " + n * i);
+            // Opción 2:
+            // sb.append(n);
+            // sb.append(" x ");
+            // sb.append(i);
+            // sb.append(" = ");
+            // sb.append(n * i);
+            // System.out.println(sb);
+            // sb.delete(0, sb.length());
+            // Opción 3:
+            System.out.format("%d x %d = %d\n", n, i, n * i);
         }
     }
 }
