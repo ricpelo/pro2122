@@ -13,7 +13,62 @@ public class Cuenta {
 
     public Cuenta(long numero, Cliente[] titulares) {
         this.numero = numero;
-        this.titulares = titulares;
+        this.titulares = titulares.clone();
+    }
+
+    public Cuenta(long numero) {
+        this.numero = numero;
+        titulares = new Cliente[0];
+    }
+
+    public Cuenta insertarTitular(Cliente titular) {
+        titulares = Arrays.copyOf(
+                titulares,
+                titulares.length + 1);
+        titulares[titulares.length - 1] = titular;
+        return this;
+    }
+
+    public Cuenta quitarTitular(int indice) {
+        Cliente[] dest;
+
+        if (indice < 0 || indice >= titulares.length) {
+            throw new IndexOutOfBoundsException(
+                    "El índice está fuera de los límites");
+        }
+
+        dest = new Cliente[titulares.length - 1];
+        System.arraycopy(titulares, 0, dest, 0, indice);
+        System.arraycopy(
+                titulares,
+                indice + 1,
+                dest,
+                indice,
+                titulares.length - indice - 1);
+        titulares = dest;
+
+        return this;
+    }
+
+    public Cuenta quitarTitular(Cliente cli) {
+        for (int i = 0; i < titulares.length; i++) {
+            if (titulares[i] == cli) {
+                quitarTitular(i);
+                break;
+            }
+        }
+
+        return this;
+    }
+
+    public Cliente[] getTitulares() {
+        return titulares.clone();
+    }
+
+    public void mostrarTitulares() {
+        for (int i = 0; i < titulares.length; i++) {
+            System.out.println(titulares[i].getNombre());
+        }
     }
 
     public long getNumero() {
@@ -22,6 +77,10 @@ public class Cuenta {
 
     public void setNumero(long numero) {
         this.numero = numero;
+    }
+
+    public double getSaldo() {
+        return saldo;
     }
 
     public void insertarMovimiento(Date fecha, String concepto, double importe) {
@@ -50,8 +109,12 @@ public class Cuenta {
     public void recalcularSaldo() {
         double suma = 0.0;
 
-        for (int i = 0; i < movimientos.length; i++) {
-            suma += movimientos[i].getImporte();
+        // for (int i = 0; i < movimientos.length; i++) {
+        //     suma += movimientos[i].getImporte();
+        // }
+
+        for (Movimiento m : movimientos) {
+            suma += m.getImporte();
         }
 
         saldo = suma;
