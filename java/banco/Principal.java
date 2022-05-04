@@ -8,6 +8,8 @@ public class Principal {
         Cliente maria = new Cliente("2131312", "María");
         Cuenta c1 = new Cuenta(1);
 
+        System.out.println(juan.getNumero());
+
         c1.insertarTitular(manuel)
                 .insertarTitular(juan)
                 .insertarTitular(maria);
