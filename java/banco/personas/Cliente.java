@@ -3,7 +3,7 @@ package personas;
 public class Cliente {
     private static long numClientes;
 
-    private String dni;
+    protected String dni;
     private String nombre;
     private final long numero;
 
@@ -23,8 +23,10 @@ public class Cliente {
         return "(" + dni + ") " + nombre;
     }
 
-    // public String toString() {
-    // }
+    @Override
+    public String toString() {
+        return String.format("(%s) %s", dni, nombre);
+    }
 
     public long getNumero() {
         return numero;
