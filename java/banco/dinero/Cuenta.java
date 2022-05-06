@@ -2,23 +2,48 @@ package dinero;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 import personas.Cliente;
 
 public class Cuenta {
-    private long numero;
+    private String numero;
     private Cliente[] titulares;
     private Movimiento[] movimientos;
     private double saldo;
 
-    public Cuenta(long numero, Cliente[] titulares) {
+    public Cuenta(String numero, Cliente[] titulares) {
         this.numero = numero;
         this.titulares = titulares.clone();
     }
 
-    public Cuenta(long numero) {
+    public Cuenta(String numero) {
         this.numero = numero;
         titulares = new Cliente[0];
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Cuenta otro = (Cuenta) obj;
+
+        return Objects.equals(numero, otro.numero);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numero);
     }
 
     public Cuenta insertarTitular(Cliente titular) {
@@ -71,11 +96,11 @@ public class Cuenta {
         }
     }
 
-    public long getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(long numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

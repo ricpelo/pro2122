@@ -1,9 +1,9 @@
 package personas;
 
 public class Menor extends Cliente {
-    private Cliente representante;
+    private Adulto representante;
 
-    public Menor(String dni, String nombre, Cliente representante) {
+    public Menor(String dni, String nombre, Adulto representante) {
         super(dni, nombre);
         setRepresentante(representante);
     }
@@ -21,7 +21,7 @@ public class Menor extends Cliente {
         return representante;
     }
 
-    public void setRepresentante(Cliente representante) {
+    public void setRepresentante(Adulto representante) {
         this.representante = representante;
     }
 }

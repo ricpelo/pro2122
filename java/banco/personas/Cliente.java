@@ -1,6 +1,8 @@
 package personas;
 
-public class Cliente {
+import java.util.Objects;
+
+public abstract class Cliente {
     private static long numClientes;
 
     protected String dni;
@@ -28,6 +30,30 @@ public class Cliente {
         return String.format("(%s) %s", dni, nombre);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Cliente otro = (Cliente) obj;
+
+        return numero == otro.getNumero();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numero);
+    }
+
     public long getNumero() {
         return numero;
     }
@@ -36,7 +62,7 @@ public class Cliente {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public final void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -44,7 +70,7 @@ public class Cliente {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public final void setNombre(String nombre) {
         this.nombre = nombre;
     }
 }
