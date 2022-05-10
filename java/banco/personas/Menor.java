@@ -23,5 +23,6 @@ public class Menor extends Cliente {
 
     public void setRepresentante(Adulto representante) {
         this.representante = representante;
+        representante.anyadirRepresentado(this);
     }
 }

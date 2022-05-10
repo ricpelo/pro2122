@@ -2,7 +2,9 @@ package personas;
 
 import java.util.Objects;
 
-public abstract class Cliente {
+import interfaces.Numerable;
+
+public abstract class Cliente implements Numerable {
     private static long numClientes;
 
     protected String dni;
@@ -54,6 +56,7 @@ public abstract class Cliente {
         return Objects.hash(numero);
     }
 
+    @Override
     public long getNumero() {
         return numero;
     }

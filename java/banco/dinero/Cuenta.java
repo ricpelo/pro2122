@@ -3,21 +3,21 @@ package dinero;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
-
+import interfaces.Numerable;
 import personas.Cliente;
 
-public class Cuenta {
-    private String numero;
+public class Cuenta implements Numerable {
+    private long numero;
     private Cliente[] titulares;
     private Movimiento[] movimientos;
     private double saldo;
 
-    public Cuenta(String numero, Cliente[] titulares) {
+    public Cuenta(long numero, Cliente[] titulares) {
         this.numero = numero;
         this.titulares = titulares.clone();
     }
 
-    public Cuenta(String numero) {
+    public Cuenta(long numero) {
         this.numero = numero;
         titulares = new Cliente[0];
     }
@@ -96,11 +96,12 @@ public class Cuenta {
         }
     }
 
-    public String getNumero() {
+    @Override
+    public long getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(long numero) {
         this.numero = numero;
     }
 
