@@ -1,7 +1,6 @@
 package dinero;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -10,13 +9,13 @@ import personas.Cliente;
 
 public class Cuenta implements Numerable {
     private long numero;
-    private List titulares;
-    private List movimientos;
+    private List<Cliente> titulares;
+    private List<Movimiento> movimientos;
     private double saldo;
 
     public Cuenta(long numero, Cliente[] titulares) {
         this.numero = numero;
-        this.titulares = new ArrayList();
+        this.titulares = new ArrayList<Cliente>();
 
         for (Cliente c : titulares) {
             this.titulares.add(c);
@@ -25,7 +24,7 @@ public class Cuenta implements Numerable {
 
     public Cuenta(long numero) {
         this.numero = numero;
-        titulares = new ArrayList();
+        titulares = new ArrayList<Cliente>();
     }
 
     @Override
@@ -67,9 +66,9 @@ public class Cuenta implements Numerable {
         return this;
     }
 
-    public List getTitulares() {
-        ArrayList ar = (ArrayList) titulares;
-        return (List) ar.clone();
+    public List<Cliente> getTitulares() {
+        ArrayList<Cliente> ar = (ArrayList<Cliente>) titulares;
+        return (List<Cliente>) ar.clone();
     }
 
     public void mostrarTitulares() {

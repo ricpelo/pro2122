@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Adulto extends Cliente {
-    private List representados;
+    private List<Menor> representados;
 
     public Adulto(String dni, String nombre) {
         super(dni, nombre);
-        representados = new ArrayList();
+        representados = new ArrayList<Menor>();
     }
 
     public void anyadirRepresentado(Menor menor) {
