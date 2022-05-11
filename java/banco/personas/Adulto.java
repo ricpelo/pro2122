@@ -1,23 +1,23 @@
 package personas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Adulto extends Cliente {
-    private Menor[] representados;
+    private List representados;
 
     public Adulto(String dni, String nombre) {
         super(dni, nombre);
-        representados = new Menor[0];
+        representados = new ArrayList();
     }
 
     public void anyadirRepresentado(Menor menor) {
-        for (Menor m : representados) {
-            if (m.equals(menor)) {
-                return;
-            }
+        Menor m;
+
+        if (representados.contains(menor)) {
+            return;
         }
-        int numElem = representados.length;
-        Menor[] nuevos = new Menor[numElem + 1];
-        System.arraycopy(representados, 0, nuevos, 0, numElem);
-        nuevos[numElem] = menor;
-        representados = nuevos;
+
+        representados.add(menor);
     }
 }

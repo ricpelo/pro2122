@@ -1,25 +1,31 @@
 package dinero;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import interfaces.Numerable;
 import personas.Cliente;
 
 public class Cuenta implements Numerable {
     private long numero;
-    private Cliente[] titulares;
-    private Movimiento[] movimientos;
+    private List titulares;
+    private List movimientos;
     private double saldo;
 
     public Cuenta(long numero, Cliente[] titulares) {
         this.numero = numero;
-        this.titulares = titulares.clone();
+        this.titulares = new ArrayList();
+
+        for (Cliente c : titulares) {
+            this.titulares.add(c);
+        }
     }
 
     public Cuenta(long numero) {
         this.numero = numero;
-        titulares = new Cliente[0];
+        titulares = new ArrayList();
     }
 
     @Override
@@ -47,53 +53,37 @@ public class Cuenta implements Numerable {
     }
 
     public Cuenta insertarTitular(Cliente titular) {
-        titulares = Arrays.copyOf(
-                titulares,
-                titulares.length + 1);
-        titulares[titulares.length - 1] = titular;
+        titulares.add(titular);
         return this;
     }
 
     public Cuenta quitarTitular(int indice) {
-        Cliente[] dest;
-
-        if (indice < 0 || indice >= titulares.length) {
-            throw new IndexOutOfBoundsException(
-                    "El índice está fuera de los límites");
-        }
-
-        dest = new Cliente[titulares.length - 1];
-        System.arraycopy(titulares, 0, dest, 0, indice);
-        System.arraycopy(
-                titulares,
-                indice + 1,
-                dest,
-                indice,
-                titulares.length - indice - 1);
-        titulares = dest;
-
+        titulares.remove(indice);
         return this;
     }
 
     public Cuenta quitarTitular(Cliente cli) {
-        for (int i = 0; i < titulares.length; i++) {
-            if (titulares[i] == cli) {
-                quitarTitular(i);
-                break;
-            }
-        }
-
+        titulares.remove(cli);
         return this;
     }
 
-    public Cliente[] getTitulares() {
-        return titulares.clone();
+    public List getTitulares() {
+        ArrayList ar = (ArrayList) titulares;
+        return (List) ar.clone();
     }
 
     public void mostrarTitulares() {
-        for (int i = 0; i < titulares.length; i++) {
-            System.out.println(titulares[i].getNombre());
+        Cliente c;
+
+        for (Object o : titulares) {
+            c = (Cliente) o;
+            System.out.println(c.getNombre());
         }
+
+        // for (int i = 0; i < titulares.size(); i++) {
+        //     c = (Cliente) titulares.get(i);
+        //     System.out.println(c.getNombre());
+        // }
     }
 
     @Override
@@ -111,10 +101,7 @@ public class Cuenta implements Numerable {
 
     public void insertarMovimiento(Date fecha, String concepto, double importe) {
         Movimiento mov = new Movimiento(fecha, concepto, importe);
-        movimientos = Arrays.copyOf(
-                movimientos,
-                movimientos.length + 1);
-        movimientos[movimientos.length - 1] = mov;
+        movimientos.add(mov);
         saldo += mov.getImporte();
     }
 
@@ -139,7 +126,10 @@ public class Cuenta implements Numerable {
         //     suma += movimientos[i].getImporte();
         // }
 
-        for (Movimiento m : movimientos) {
+        Movimiento m;
+
+        for (Object o : movimientos) {
+            m = (Movimiento) o;
             suma += m.getImporte();
         }
 
