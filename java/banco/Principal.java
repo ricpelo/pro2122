@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import dinero.Cuenta;
 import interfaces.Numerable;
 import personas.Adulto;
+import personas.Cliente;
 import personas.Menor;
 
 public class Principal {
@@ -9,7 +14,7 @@ public class Principal {
         Adulto juan = new Adulto("dlkjflks", "Juan");
         Adulto maria = new Adulto("2131312", "María");
         Menor pepito = new Menor("123123M", "Pepito", manuel);
-        Cuenta c1 = new Cuenta(1L);
+        Cuenta c1 = new Cuenta(1L, Set.of(manuel, maria));
 
         System.out.println(pepito);
         mostrarNumero(manuel);

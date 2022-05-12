@@ -1,30 +1,30 @@
 package dinero;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
 import interfaces.Numerable;
 import personas.Cliente;
 
 public class Cuenta implements Numerable {
     private long numero;
-    private List<Cliente> titulares;
+    private Set<Cliente> titulares;
     private List<Movimiento> movimientos;
     private double saldo;
 
-    public Cuenta(long numero, Cliente[] titulares) {
+    public Cuenta(long numero, Collection<Cliente> titulares) {
         this.numero = numero;
-        this.titulares = new ArrayList<Cliente>();
-
-        for (Cliente c : titulares) {
-            this.titulares.add(c);
-        }
+        this.titulares = new HashSet<Cliente>(titulares);
     }
 
     public Cuenta(long numero) {
         this.numero = numero;
-        titulares = new ArrayList<Cliente>();
+        titulares = new HashSet<Cliente>();
     }
 
     @Override
@@ -56,10 +56,10 @@ public class Cuenta implements Numerable {
         return this;
     }
 
-    public Cuenta quitarTitular(int indice) {
-        titulares.remove(indice);
-        return this;
-    }
+    // public Cuenta quitarTitular(int indice) {
+    //     titulares.remove(indice);
+    //     return this;
+    // }
 
     public Cuenta quitarTitular(Cliente cli) {
         titulares.remove(cli);
@@ -67,22 +67,13 @@ public class Cuenta implements Numerable {
     }
 
     public List<Cliente> getTitulares() {
-        ArrayList<Cliente> ar = (ArrayList<Cliente>) titulares;
-        return (List<Cliente>) ar.clone();
+        return new ArrayList<Cliente>(titulares);
     }
 
     public void mostrarTitulares() {
-        Cliente c;
-
-        for (Object o : titulares) {
-            c = (Cliente) o;
+        for (Cliente c : titulares) {
             System.out.println(c.getNombre());
         }
-
-        // for (int i = 0; i < titulares.size(); i++) {
-        //     c = (Cliente) titulares.get(i);
-        //     System.out.println(c.getNombre());
-        // }
     }
 
     @Override
@@ -125,10 +116,7 @@ public class Cuenta implements Numerable {
         //     suma += movimientos[i].getImporte();
         // }
 
-        Movimiento m;
-
-        for (Object o : movimientos) {
-            m = (Movimiento) o;
+        for (Movimiento m : movimientos) {
             suma += m.getImporte();
         }
 
