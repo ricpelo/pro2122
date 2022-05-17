@@ -8,7 +8,7 @@ public class Asignatura {
     private int numTrimestres;
     private Set<Alumno> alumnos;
 
-    private Map<Alumno,Float[]> notas;
+    private Map<Alumno,Map<Integer,Float>> notas;
 
     public Asignatura(String denominacion, int numTrimestres) {
         this.denominacion = denominacion;
@@ -18,27 +18,25 @@ public class Asignatura {
     }
 
     public boolean matricular(Alumno alumno) {
-        notas.put(alumno, new Float[numTrimestres]);
+        notas.put(alumno, new HashMap<>());
         return alumnos.add(alumno);
     }
 
     public void setNota(Alumno alumno, int trimestre, float nota) {
         comprobarMatriculaAlumno(alumno);
         comprobarTrimestre(trimestre);
-        notas.get(alumno)[trimestre - 1] = nota;
+        notas.get(alumno).put(trimestre, nota);
     }
 
     public Float media(Alumno alumno) {
         comprobarMatriculaAlumno(alumno);
-        Float[] notasAlumno = notas.get(alumno);
+        Map<Integer,Float> notasAlumno = notas.get(alumno);
         float suma = 0f;
         int numNotas = 0;
 
-        for (int i = 0; i < notasAlumno.length; i++) {
-            if (notasAlumno[i] != null) {
-                suma += notasAlumno[i];
-                numNotas++;
-            }
+        for (Float nota : notasAlumno.values()) {
+            suma += nota;
+            numNotas++;
         }
 
         if (numNotas == 0) {
@@ -49,18 +47,14 @@ public class Asignatura {
     }
 
     public void imprimirNotas() {
-        Float[] notasAlumno;
-        Float notaAlumno;
+        Map<Integer,Float> notasAlumno;
 
         for (Alumno a : notas.keySet()) {
             System.out.println(a.getNombre());
             notasAlumno = notas.get(a);
 
-            for (int i = 0; i < notasAlumno.length; i++) {
-                notaAlumno = notasAlumno[i];
-                if (notaAlumno != null) {
-                    System.out.println(String.format("En el trimestre %d ha sacado %f", i + 1, notaAlumno));
-                }
+            for (Integer i : notasAlumno.keySet()) {
+                System.out.println(String.format("En el trimestre %d ha sacado %f", i, notas.get(i)));
             }
         }
     }
@@ -72,7 +66,7 @@ public class Asignatura {
             return null;
         }
 
-        return notas.get(alumno)[trimestre - 1];
+        return notas.get(alumno).get(trimestre);
     }
 
     private void comprobarMatriculaAlumno(Alumno alumno) {
