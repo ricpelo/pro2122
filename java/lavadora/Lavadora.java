@@ -77,7 +77,7 @@ public class Lavadora {
                 apagar();
             }
             getDetergente().quitar(0.4f);
-            getSuavizante().quitar(0.4f);
+            getSuavizante().quitar(0.2f);
         }
 
         return this;
